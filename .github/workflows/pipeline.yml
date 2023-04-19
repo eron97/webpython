@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: SAST report
-          path: results.sarif
+          path: ./python.sarif
       - name: Test
         env:
           MY_SECRET: ${{ secrets.MY_TOKEN }}

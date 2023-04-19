@@ -25,32 +25,15 @@ jobs:
       - name: Build
         run: echo "Build ok"
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: python
-      - name: Security Code Scan
-        uses: github/codeql-action/analyze@v2
-        with:
-          database: codeql-database
-      - name: Move SAST report to results directory
-        run: mv python.sarif results/
-      - name: Upload SAST report
-        uses: actions/upload-artifact@v2
-        with:
-          name: SAST report
-          path: results/python.sarif
-      - name: Test
-        env:
-          MY_SECRET: ${{ secrets.MY_TOKEN }}
-        run: |
-          echo "Teste SAST ok"
-          echo "My secret is $MY_TOKEN"
+test-job:
+  runs: ubuntu-latest
+  setps:
+    - name: Start Test
+    - uses: actions/checkout@v3
+    - run: python3 teste.py
+    - uses: AppThreat/sast-scan-action@master
+      with:
+        type: "python"
 
   deploy:
     needs: test
@@ -58,3 +41,5 @@ jobs:
     steps:
       - name: Deploy
         run: echo "Deploy ok"
+
+

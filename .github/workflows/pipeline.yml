@@ -30,11 +30,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Security Code Scan
-        uses: github/codeql-action/analyze@v1
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
         with:
           languages: python
-          query: python-code-scanning.qls
+      - name: Security Code Scan
+        uses: github/codeql-action/analyze@v2
+        with:
+          database: codeql-database
       - name: Upload SAST report
         uses: actions/upload-artifact@v2
         with:

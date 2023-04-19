@@ -13,10 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: python3 -V
-      - name: Install Flask
-        run: pip install Flask
-      - name: Install Bandit
-        run: pip install bandit
       - name: Build
         run: echo "Build ok"
 

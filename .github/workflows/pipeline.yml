@@ -25,15 +25,16 @@ jobs:
       - name: Build
         run: echo "Build ok"
 
-test-job:
-  runs: ubuntu-latest
-  setps:
-    - name: Start Test
-    - uses: actions/checkout@v3
-    - run: python3 app.py
-    - uses: AppThreat/sast-scan-action@master
-      with:
-        type: "python"
+  test:
+    needs: build
+    runs: ubuntu-latest
+    setps:
+      - name: Start Test
+      - uses: actions/checkout@v3
+      - run: python3 app.py
+      - uses: AppThreat/sast-scan-action@master
+        with:
+          type: "python"
 
   deploy:
     needs: test

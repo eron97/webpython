@@ -38,11 +38,13 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           database: codeql-database
+      - name: Move SAST report to results directory
+        run: mv python.sarif results/
       - name: Upload SAST report
         uses: actions/upload-artifact@v2
         with:
           name: SAST report
-          path: ./python.sarif
+          path: results/python.sarif
       - name: Test
         env:
           MY_SECRET: ${{ secrets.MY_TOKEN }}

@@ -29,19 +29,29 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Install Flask
-        run: pip install Flask
-      - name: Start Test
-        run: python3 ./app.py
-      - uses: AppThreat/sast-scan-action@master
+      - uses: actions/checkout@v2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
         with:
-          type: "python"
-
+          languages: python
+      - name: Security Code Scan
+        uses: github/codeql-action/analyze@v2
+        with:
+          database: codeql-database
+      - name: Upload SAST report
+        uses: actions/upload-artifact@v2
+        with:
+          name: SAST report
+          path: ./python.sarif
+      - name: Test
+        env:
+          MY_SECRET: ${{ secrets.MY_TOKEN }}
+        run: |
+          echo "Teste SAST ok"
+          echo "My secret is $MY_TOKEN"
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
         run: echo "Deploy ok"
-
-

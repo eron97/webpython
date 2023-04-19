@@ -29,23 +29,26 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.5.1
+      - uses: actions/checkout@v2
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2.4.5
+        uses: github/codeql-action/init@v2
         with:
           languages: python
       - name: Security Code Scan
-        uses: github/codeql-action/analyze@v2.4.5
+        uses: github/codeql-action/analyze@v2
         with:
           database: codeql-database
       - name: Upload SAST report
-        if: always()
-        uses: actions/upload-artifact@v2.2.7
+        uses: actions/upload-artifact@v2
         with:
           name: SAST report
           path: results.sarif
       - name: Test
-        run: echo "Teste SAST ok"
+        env:
+          MY_SECRET: ${{ secrets.MY_TOKEN }}
+        run: |
+          echo "Teste SAST ok"
+          echo "My secret is $MY_TOKEN"
 
   deploy:
     needs: test

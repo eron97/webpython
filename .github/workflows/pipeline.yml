@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.4
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.6.2
         with:
           python-version: 3.x
       - name: Install pip
@@ -29,17 +29,18 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.4
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v2.4.4
         with:
           languages: python
       - name: Security Code Scan
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v2.4.4
         with:
           database: codeql-database
       - name: Upload SAST report
-        uses: actions/upload-artifact@v2
+        if: always()
+        uses: actions/upload-artifact@v2.2.6
         with:
           name: SAST report
           path: results.sarif

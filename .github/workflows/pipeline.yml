@@ -29,18 +29,18 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.4
+      - uses: actions/checkout@v2.5.1
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2.4.4
+        uses: github/codeql-action/init@v2.4.5
         with:
           languages: python
       - name: Security Code Scan
-        uses: github/codeql-action/analyze@v2.4.4
+        uses: github/codeql-action/analyze@v2.4.5
         with:
           database: codeql-database
       - name: Upload SAST report
         if: always()
-        uses: actions/upload-artifact@v2.2.6
+        uses: actions/upload-artifact@v2.2.7
         with:
           name: SAST report
           path: results.sarif

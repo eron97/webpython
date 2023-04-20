@@ -52,10 +52,10 @@ jobs:
             sudo apt update && sudo apt install ngrok
 
       - name: Connect agente for token
-        run: ngrok config add-authtoken 2Of8cjvsY1tEObyUzi5kDaA1V0Q_syZg7DQ5VkhfeT7Kceqs
+        run: sudo ngrok config add-authtoken 2Of8cjvsY1tEObyUzi5kDaA1V0Q_syZg7DQ5VkhfeT7Kceqs
 
       - name: Init Ngrok
-        run: ngrok http 8000
+        run: sudo ngrok http 8000
 
       - name: Deploy
         run: echo "Deploy ok"

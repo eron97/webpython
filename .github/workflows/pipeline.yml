@@ -54,9 +54,6 @@ jobs:
       - name: Connect agente for token
         run: ngrok config add-authtoken 2Of8cjvsY1tEObyUzi5kDaA1V0Q_syZg7DQ5VkhfeT7Kceqs
 
-      - name: Wait for Ngrok to start
-        run: Start-Sleep -Seconds 10
-
       - name: Init Ngrok
         run: ngrok http 8000
 

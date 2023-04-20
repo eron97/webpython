@@ -47,8 +47,19 @@ jobs:
           push: true
           tags: eronbetine/pucpr:latest
 
+      - name: Expose Docker container with Ngrok
+        env:
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       - name: Expose Docker container
-        run: |
-          docker run -d -p 8000:8000 eronbetine/pucpr:latest
+        run: docker run -d -p 8000:8000 eronbetine/pucpr:latest
+
+      - name: Authenticate Ngrok
+        run: ./ngrok authtoken $NGROK_AUTH_TOKEN
+
+      - name: Wait for Ngrok to start
+        run: sleep 10
+
+      - name: Expose app with Ngrok
+        run: ./ngrok http 8000
       - name: Deploy
         run: echo "Deploy ok"

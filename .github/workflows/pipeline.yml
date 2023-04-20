@@ -44,7 +44,7 @@ jobs:
         run: docker run -d -p 8000:8000 eronbetine/pucpr:latest
 
       - name: Extract Ngrok
-        run: snap install ngrok
+        run: sudo snap install ngrok-v3-stable-linux-amd64.tgz
 
       - name: Authenticate Ngrok
         run: ngrok config add-authtoken $NGROK_AUTH_TOKEN

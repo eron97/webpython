@@ -43,21 +43,25 @@ jobs:
       - name: Expose Docker container
         run: docker run -d -p 8000:8000 eronbetine/pucpr:latest
 
-      - name: Extract Ngrok
-        run: sudo snap install ngrok
+      - name: Install agent
+        run: |
+          curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | \
+            sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && \
+            echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | \
+            sudo tee /etc/apt/sources.list.d/ngrok.list && \
+            sudo apt update && sudo apt install ngrok
 
-      - name: Debug
-        run: echo $NGROK_AUTH_TOKEN
-
-      - name: Authenticate Ngrok
-        run: ngrok authtoken $NGROK_AUTH_TOKEN
+      - name: Connect agente for token
+        run: ngrok config add-authtoken 2Of8cjvsY1tEObyUzi5kDaA1V0Q_syZg7DQ5VkhfeT7Kceqs
 
       - name: Wait for Ngrok to start
         run: Start-Sleep -Seconds 10
 
-      - name: Expose app with Ngrok
-        run: ./ngrok http 8000
+      - name: Init Ngrok
+        run: ngrok http 8000
 
       - name: Deploy
         run: echo "Deploy ok"
+
+
 

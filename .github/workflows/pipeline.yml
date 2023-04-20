@@ -43,14 +43,17 @@ jobs:
       - name: Expose Docker container
         run: docker run -d -p 8000:8000 eronbetine/pucpr:latest
 
-      - name: Extract and Authenticate Ngrok
-        run: tar xvzf ngrok-v3-stable-linux-amd64.tgz && ./ngrok authtoken $NGROK_AUTH_TOKEN
+      - name: Extract Ngrok
+        run: snap install ngrok
+
+      - name: Authenticate Ngrok
+        run: ngrok config add-authtoken $NGROK_AUTH_TOKEN
 
       - name: Wait for Ngrok to start
         run: Start-Sleep -Seconds 10
 
       - name: Expose app with Ngrok
-        run: ./ngrok.exe http 8000
+        run: ./ngrok http 8000
 
       - name: Deploy
         run: echo "Deploy ok"

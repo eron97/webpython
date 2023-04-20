@@ -29,6 +29,7 @@ jobs:
 
   deploy-job:
     needs: test-job
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -43,13 +44,14 @@ jobs:
         run: docker run -d -p 8000:8000 eronbetine/pucpr:latest
 
       - name: Authenticate Ngrok
-        run: ./ngrok authtoken $NGROK_AUTH_TOKEN
+        run: ./ngrok.exe authtoken $NGROK_AUTH_TOKEN
 
       - name: Wait for Ngrok to start
-        run: sleep 10
+        run: Start-Sleep -Seconds 10
 
       - name: Expose app with Ngrok
-        run: ./ngrok http 8000
+        run: ./ngrok.exe http 8000
 
       - name: Deploy
         run: echo "Deploy ok"
+

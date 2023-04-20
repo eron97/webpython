@@ -47,6 +47,7 @@ jobs:
         run: sudo snap install ngrok
 
       - name: Authenticate Ngrok
+        run: echo $NGROK_AUTH_TOKEN
         run: ngrok authtoken $NGROK_AUTH_TOKEN
 
       - name: Wait for Ngrok to start

@@ -43,11 +43,6 @@ jobs:
       - name: Expose Docker container
         run: docker run -d -p 8000:8000 eronbetine/pucpr:latest
 
-      - name: Connect port-app for ngrok
-        run: sudo docker run -e NGROK_AUTHTOKEN=2Of8cjvsY1tEObyUzi5kDaA1V0Q_syZg7DQ5VkhfeT7Kceqs ngrok/ngrok http 8000
-
-      - name: Deploy
-        run: echo "Deploy ok"
 
 
 

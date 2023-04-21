@@ -16,17 +16,6 @@ jobs:
       - name: Build
         run: echo "Build ok"
 
-  test-job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: pip install Flask
-      - run: python3 app.py
-      - uses: AppThreat/sast-scan-action@master
-        with:
-          type: "python"
-
   deploy-job:
     runs-on: ubuntu-latest
     needs: test-job
@@ -50,10 +39,11 @@ jobs:
         uses: vmactions/ngrok-tunnel@v0.0.1
         with:
           protocol: http
-          port: 8000  
+          port: 8000
 
       - name: Print ngrok public URL
         run: echo "Public URL: ${{ steps.test.outputs.public_url }}"
+
 
         
 

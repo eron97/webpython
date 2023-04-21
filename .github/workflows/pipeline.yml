@@ -49,8 +49,8 @@ jobs:
         id: test
         uses: vmactions/ngrok-tunnel@v0.0.1
         with:
-        protocol: http
-        port: 8000  
+          protocol: http
+          port: 8000  
 
       - name: Print ngrok public URL
         run: echo "Public URL: ${{ steps.test.outputs.public_url }}"

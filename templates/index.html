@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Adição</title>
-</head>
-<body>
-	<h1>Adição</h1>
-	<form method="POST" action="/addition">
-		<label for="num1">Número 1:</label>
-		<input type="number" name="num1" id="num1" required>
-		<label for="num2">Número 2:</label>
-		<input type="number" name="num2" id="num2" required>
-		<button type="submit">Adicionar</button>
-	</form>
-</body>
+  <head>
+    <title>Descubra quantos dias já viveu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Descubra quantos dias já viveu</h1>
+      <form onsubmit="calcularDias(event)">
+        <label for="data-nascimento">Data de Nascimento:</label>
+        <input type="date" id="data-nascimento" required>
+        <button type="submit">Descobrir</button>
+      </form>
+      <div class="resultado">
+        <p>Dias que você já viveu:</p>
+        <p id="contador">...</p>
+      </div>
+    </div>
+    <script>
+      function calcularDias(event) {
+        event.preventDefault();
+        var dataNascimento = document.getElementById("data-nascimento").value;
+        var dataAtual = new Date();
+        var dataNascimentoFormatada = new Date(dataNascimento);
+        var diferencaEmDias = Math.floor(
+          (dataAtual - dataNascimentoFormatada) / (1000 * 60 * 60 * 24)
+        );
+        var contador = document.getElementById("contador");
+        contador.innerHTML = diferencaEmDias;
+      }
+    </script>
+  </body>
 </html>

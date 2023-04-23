@@ -6,9 +6,5 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/addition', methods=['POST'])
-def addition():
-    num1 = int(request.form['num1'])
-    num2 = int(request.form['num2'])
-    result = num1 + num2
-    return render_template('result.html', result=result)
+if __name__ == '__main__':
+    app.run()
